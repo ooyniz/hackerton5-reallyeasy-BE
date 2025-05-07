@@ -9,6 +9,7 @@
 - [ ] 기능 추가 (Feature)
 - [ ] 버그 수정 (Bug fix)
 - [ ] 문서 수정 (Docs)
+- [ ] 빌드 업무, 패키지 매니저 설정 (Chore)
 - [ ] 리팩토링 (Refactor)
 - [ ] 테스트 추가 (Test)
 - [ ] 스타일 수정 (Style)
