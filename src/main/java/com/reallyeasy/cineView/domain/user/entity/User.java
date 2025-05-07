@@ -36,6 +36,16 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     private String role;
 
+    @Builder
+    public User(String userName, String password, String name, String bio, Character gender, String role) {
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.bio = bio;
+        this.gender = gender;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
@@ -43,7 +53,7 @@ public class User extends BaseTimeEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.getUsername();
+        return this.userName;
     }
 
     @Override
@@ -64,13 +74,5 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-
-    @Builder
-    public User(String userName, String password, String name, String bio, Character gender) {
-        this.userName = userName;
-        this.password = password;
-        this.name = name;
-        this.bio = bio;
-        this.gender = gender;
     }
 }
