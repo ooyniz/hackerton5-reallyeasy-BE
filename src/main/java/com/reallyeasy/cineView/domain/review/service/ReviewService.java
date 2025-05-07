@@ -10,6 +10,9 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -50,5 +53,10 @@ public class ReviewService {
             throw new IllegalArgumentException("리뷰와 영화 정보가 일치하지 않습니다.");
 
         reviewRepository.delete(review);
+    }
+
+    public List<ReviewResponse> getReviewsByUser(Long userId) {
+        List<Review> reviews = reviewRepository.findAllByUserId(userId);
+        return reviews.stream().map(ReviewResponse::new).collect(Collectors.toList());
     }
 }

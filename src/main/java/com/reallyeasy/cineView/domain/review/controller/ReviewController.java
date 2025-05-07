@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/reviews")
@@ -30,5 +32,10 @@ public class ReviewController {
     public ResponseEntity<?> deleteReview(@PathVariable Long movieId, @PathVariable Long reviewId) {
         reviewService.deleteReview(userId, movieId, reviewId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<ReviewResponse>> getReviewsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(reviewService.getReviewsByUser(userId));
     }
 }
