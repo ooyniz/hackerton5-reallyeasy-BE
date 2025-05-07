@@ -1,4 +1,4 @@
-package com.reallyeasy.cineView.domain.user.dto;
+package com.reallyeasy.cineView.domain.user.dto.request;
 
 public record UserCreateRequest(
         String userName,
