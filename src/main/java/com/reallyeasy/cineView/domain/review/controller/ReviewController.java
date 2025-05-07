@@ -38,4 +38,9 @@ public class ReviewController {
     public ResponseEntity<List<ReviewResponse>> getReviewsByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(reviewService.getReviewsByUser(userId));
     }
+
+    @GetMapping("/movie/{movieId}")
+    public ResponseEntity<List<ReviewResponse>> getReviewsByMovie(@PathVariable Long movieId) {
+        return ResponseEntity.ok(reviewService.getReviewsByMovie(movieId));
+    }
 }

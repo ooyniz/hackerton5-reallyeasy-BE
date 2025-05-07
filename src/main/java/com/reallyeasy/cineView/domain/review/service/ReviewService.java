@@ -57,6 +57,13 @@ public class ReviewService {
 
     public List<ReviewResponse> getReviewsByUser(Long userId) {
         List<Review> reviews = reviewRepository.findAllByUserId(userId);
+        // todo user
+        return reviews.stream().map(ReviewResponse::new).collect(Collectors.toList());
+    }
+
+    public List<ReviewResponse> getReviewsByMovie(Long movieId) {
+        List<Review> reviews = reviewRepository.findAllByMovieId(movieId);
+        // todo movie
         return reviews.stream().map(ReviewResponse::new).collect(Collectors.toList());
     }
 }
