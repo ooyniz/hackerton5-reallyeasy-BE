@@ -66,4 +66,9 @@ public class ReviewService {
         // todo movie
         return reviews.stream().map(ReviewResponse::new).collect(Collectors.toList());
     }
+
+    public ReviewResponse getReview(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
+        return new ReviewResponse(review);
+    }
 }
