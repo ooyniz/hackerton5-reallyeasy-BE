@@ -1,7 +1,7 @@
 package com.reallyeasy.cineView.domain.movie.dto;
 
 import com.reallyeasy.cineView.domain.movie.entity.Movie;
-import com.reallyeasy.cineView.domain.movie.dto.repository.MovieRepository;
+import com.reallyeasy.cineView.domain.movie.repository.MovieRepository;
 import com.reallyeasy.cineView.domain.movie.dto.response.MovieSearchResponse;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;

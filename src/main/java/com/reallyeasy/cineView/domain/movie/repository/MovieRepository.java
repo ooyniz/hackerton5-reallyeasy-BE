@@ -1,4 +1,4 @@
-package com.reallyeasy.cineView.domain.movie.dto.repository;
+package com.reallyeasy.cineView.domain.movie.repository;
 
 import com.reallyeasy.cineView.domain.movie.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
