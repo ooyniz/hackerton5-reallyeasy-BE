@@ -2,7 +2,7 @@ package com.reallyeasy.cineView.domain.review.entity;
 
 
 import com.reallyeasy.cineView.domain.BaseTimeEntity;
-import com.reallyeasy.cineView.domain.review.dto.request.ReviewCreateRequest;
+import com.reallyeasy.cineView.domain.review.dto.request.ReviewRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,11 +31,18 @@ public class Review extends BaseTimeEntity {
     @Column
     private Long movieId;
 
-    public Review(ReviewCreateRequest request, Long userId, Long movieId) {
+    public Review(ReviewRequest request, Long userId, Long movieId) {
         this.content = request.getContent();
         this.rating = request.getRating();
         this.userId = userId;
         this.movieId = movieId;
     }
 
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
+    public void updateRating(int rating) {
+        this.rating = rating;
+    }
 }
