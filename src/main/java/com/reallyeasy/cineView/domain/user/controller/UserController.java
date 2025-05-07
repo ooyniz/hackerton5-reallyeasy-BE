@@ -1,7 +1,7 @@
 package com.reallyeasy.cineView.domain.user.controller;
 
-import com.reallyeasy.cineView.domain.user.dto.UserCreateRequest;
-import com.reallyeasy.cineView.domain.user.dto.UserCreateResponse;
+import com.reallyeasy.cineView.domain.user.dto.request.UserCreateRequest;
+import com.reallyeasy.cineView.domain.user.dto.response.UserCreateResponse;
 import com.reallyeasy.cineView.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
