@@ -31,6 +31,8 @@ public class Review extends BaseTimeEntity {
     // todo : movieId
     @Column
     private Long movieId;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Movie movie;
 
     public Review(ReviewRequest request, User user, Long movieId) {
         this.content = request.getContent();

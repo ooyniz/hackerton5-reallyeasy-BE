@@ -2,6 +2,7 @@ package com.reallyeasy.cineView.domain.review.controller;
 
 import com.reallyeasy.cineView.domain.review.dto.request.ReviewRequest;
 import com.reallyeasy.cineView.domain.review.dto.response.ReviewResponse;
+import com.reallyeasy.cineView.domain.review.dto.response.ReviewWithMovieResponse;
 import com.reallyeasy.cineView.domain.review.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -45,7 +46,7 @@ public class ReviewController {
     }
 
     @GetMapping("/movie/{movieId}")
-    public ResponseEntity<List<ReviewResponse>> getReviewsByMovie(@PathVariable Long movieId) {
+    public ResponseEntity<List<ReviewWithMovieResponse>> getReviewsByMovie(@PathVariable Long movieId) {
         return ResponseEntity.ok(reviewService.getReviewsByMovie(movieId));
     }
 }
