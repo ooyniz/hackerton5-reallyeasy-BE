@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: cineView
+  config:
+    import: optional:file:.env[.properties]
+
+springdoc:
+  packages-to-scan: com.reallyeasy.cineView
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /swagger
+    disable-swagger-default-url: true
+    display-request-duration: true
+    operations-sorter: alpha
+  group-configs:
+    - group: users
+      paths-to-match: /api/v1/users/**
+    - group: posts
+      paths-to-match: /api/v1/posts/**
