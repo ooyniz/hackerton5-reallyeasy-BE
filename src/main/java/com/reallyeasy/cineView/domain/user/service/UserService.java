@@ -43,25 +43,4 @@ public class UserService {
     public Boolean checkUserNameDuplicate(String userName) {
         return userRepository.existsByUserName(userName); // TODO:Exception 처리
     }
-
-    public UserLoginResponse login(UserLoginRequest request) {
-
-        User user = userRepository.findByUserName(request.userName()).orElseThrow();
-
-        if(!passwordEncoder.matches(request.password(), user.getPassword()))
-            throw new RuntimeException();
-
-        Pair<String, Key> pair = JwtKey.getRandomKey();
-        String kid = pair.getFirst();
-        Key key = pair.getSecond();
-
-        String token = Jwts.builder()
-                .setHeaderParam("kid", kid)
-                .setSubject(user.getUsername())
-                .claim("role", user.getRole())
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
-
-        return new UserLoginResponse(user.getUsername(), user.getName(), user.getBio(), token, user.getGender());
-    }
 }
