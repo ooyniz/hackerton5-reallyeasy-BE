@@ -1,13 +1,10 @@
 package com.reallyeasy.cineView.domain.user.service;
 
-import com.reallyeasy.cineView.domain.user.dto.UserCreateRequest;
-import com.reallyeasy.cineView.domain.user.dto.UserCreateResponse;
-import com.reallyeasy.cineView.domain.user.dto.UserLoginRequest;
-import com.reallyeasy.cineView.domain.user.dto.UserLoginResponse;
+import com.reallyeasy.cineView.domain.user.dto.request.UserCreateRequest;
+import com.reallyeasy.cineView.domain.user.dto.response.UserCreateResponse;
 import com.reallyeasy.cineView.domain.user.entity.User;
 import com.reallyeasy.cineView.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
