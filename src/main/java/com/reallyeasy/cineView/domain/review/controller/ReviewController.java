@@ -25,4 +25,10 @@ public class ReviewController {
     public ResponseEntity<ReviewResponse> updateReview(@PathVariable Long movieId, @PathVariable Long reviewId, @RequestBody ReviewRequest request) {
         return ResponseEntity.ok(reviewService.updateReview(request, userId, movieId, reviewId));
     }
+
+    @DeleteMapping("/{movieId}/{reviewId}")
+    public ResponseEntity<?> deleteReview(@PathVariable Long movieId, @PathVariable Long reviewId) {
+        reviewService.deleteReview(userId, movieId, reviewId);
+        return ResponseEntity.ok().build();
+    }
 }

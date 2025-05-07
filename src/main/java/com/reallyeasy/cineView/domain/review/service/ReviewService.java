@@ -25,4 +25,10 @@ public class ReviewService {
 
         return new ReviewResponse(review);
     }
+
+    public void deleteReview(Long userId, Long movieId, Long reviewId) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow();
+        // todo movie, user
+        reviewRepository.delete(review);
+    }
 }
