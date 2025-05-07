@@ -1,8 +1,10 @@
 package com.reallyeasy.cineView.domain.user.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Table(name = "users")
 @Getter
 @Entity
