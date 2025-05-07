@@ -2,17 +2,18 @@ package com.reallyeasy.cineView.domain.user.entity;
 
 import com.reallyeasy.cineView.domain.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
+import lombok.NoArgsConstructor;
 
-@Builder
 @Table(name = "users")
 @Getter
+@NoArgsConstructor
 @Entity
 public class User extends BaseTimeEntity implements UserDetails {
 
@@ -63,5 +64,13 @@ public class User extends BaseTimeEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+
+    @Builder
+    public User(String userName, String password, String name, String bio, Character gender) {
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.bio = bio;
+        this.gender = gender;
     }
 }
