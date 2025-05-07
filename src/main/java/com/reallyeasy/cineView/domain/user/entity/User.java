@@ -1,14 +1,17 @@
 package com.reallyeasy.cineView.domain.user.entity;
 
+import com.reallyeasy.cineView.domain.BaseTimeEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Builder
 @Table(name = "users")
 @Getter
+@NoArgsConstructor
 @Entity
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +29,13 @@ public class User {
     private String bio;
 
     private Character gender;
+
+    @Builder
+    public User(String userName, String password, String name, String bio, Character gender) {
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.bio = bio;
+        this.gender = gender;
+    }
 }
