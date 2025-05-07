@@ -29,6 +29,6 @@ public class UserService {
     }
 
     public Boolean checkUserNameDuplicate(String userName) {
-        return userRepository.existsUserName(userName).orElseThrow(); // TODO:Exception 처리
+        return userRepository.existsByUserName(userName); // TODO:Exception 처리
     }
 }
