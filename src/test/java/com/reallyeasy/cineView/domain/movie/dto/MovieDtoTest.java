@@ -1,5 +1,6 @@
 package com.reallyeasy.cineView.domain.movie.dto;
 
+import com.reallyeasy.cineView.domain.movie.dto.request.MovieRequest;
 import com.reallyeasy.cineView.domain.movie.entity.Movie;
 import com.reallyeasy.cineView.domain.movie.repository.MovieRepository;
 import com.reallyeasy.cineView.domain.movie.dto.response.MovieSearchResponse;
@@ -32,9 +33,9 @@ class MovieDtoTest {
         System.out.println(API_URL);
         ResponseEntity<MovieSearchResponse> response = restTemplate.getForEntity(API_URL, MovieSearchResponse.class);
         System.out.println(response.getBody());
-        List<MovieDto> movies = response.getBody().getResults();
+        List<MovieRequest> movies = response.getBody().getResults();
         System.out.println(movies);
-        for (MovieDto movieDto : movies) {
+        for (MovieRequest movieDto : movies) {
             if(movieDto == null){
                 continue;
             }
@@ -49,9 +50,9 @@ class MovieDtoTest {
     void lotsOfMovies() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<MovieSearchResponse> response = restTemplate.getForEntity(API_URL2, MovieSearchResponse.class);
-        List<MovieDto> movies = response.getBody().getResults();
+        List<MovieRequest> movies = response.getBody().getResults();
         System.out.println(movies);
-        for (MovieDto movieDto : movies) {
+        for (MovieRequest movieDto : movies) {
             if(movieDto == null){
                 continue;
             }
