@@ -17,7 +17,7 @@ public class MovieResponse {
     private String posterPath;
     private LocalDate releaseDate;
 
-    public static MovieResponse from(Movie movie) {
+    public static MovieResponse toDto(Movie movie) {
         return new MovieResponse(
                 movie.getId(),
                 movie.getTmdbId(),

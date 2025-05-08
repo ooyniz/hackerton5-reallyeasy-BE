@@ -22,7 +22,6 @@ public class PostService {
 
     private final UserRepository userRepository;
     private final PostRepository postRepository;
-    private final PostConverter postConverter;
 
     /**
      * 게시글 작성
@@ -31,40 +30,18 @@ public class PostService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 사용자입니다."));
 
-        Post entity = Post.builder()
-                        .category(request.getCategory())
-                        .title(request.getTitle())
-                        .content(request.getContent())
-                        .user(user)
-                        .build();
-        Post savedPost = postRepository.save(entity);
+        Post post = request.toEntity(user);
+        Post savedPost = postRepository.save(post);
 
-        return postConverter.toResponse(postRepository.save(entity));
+        return PostResponse.toDto(savedPost);
     }
 
     /**
      * 게시글 목록 조회
      */
-    public PostListResponse getList(Category category, Pageable pageable) {
-
+    public Page<PostResponse> getList(Category category, Pageable pageable) {
         Page<Post> pageList = postRepository.findByCategory(category, pageable);
-
-        List<PostResponse> responseList = pageList.stream()
-                .map(postConverter::toResponse)
-                .toList();
-
-        Pagination pagination = Pagination.builder()
-                .page(pageList.getNumber())
-                .size(pageList.getSize())
-                .currentElements(pageList.getNumberOfElements())
-                .totalElements(pageList.getTotalElements())
-                .totalPage(pageList.getTotalPages())
-                .build();
-
-        return PostListResponse.builder()
-                .posts(responseList)
-                .pagination(pagination)
-                .build();
+        return pageList.map(PostResponse::toDto);
     }
 
     /**
@@ -73,7 +50,7 @@ public class PostService {
     public PostWithCommentResponse getDetail(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
-        return new PostWithCommentResponse(post);
+        return PostWithCommentResponse.toDto(post);
     }
 
     /**
@@ -89,7 +66,7 @@ public class PostService {
 
         post.update(request.getTitle(), request.getContent());
 
-        return postConverter.toResponse(post);
+        return PostResponse.toDto(post);
     }
 
     /**
@@ -105,6 +82,6 @@ public class PostService {
 
         postRepository.delete(post);
 
-        return postConverter.toResponse(post);
+        return PostResponse.toDto(post);
     }
 }

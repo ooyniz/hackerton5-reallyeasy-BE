@@ -3,6 +3,8 @@ package com.reallyeasy.cineView.domain.post.dto.request;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.reallyeasy.cineView.common.enums.Category;
+import com.reallyeasy.cineView.domain.post.entity.Post;
+import com.reallyeasy.cineView.domain.user.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -30,4 +32,13 @@ public class PostCreateRequest {
 
     @NotNull
     private Long userId;
+
+    public Post toEntity(User user) {
+        return Post.builder()
+                .category(this.category)
+                .title(this.title)
+                .content(this.content)
+                .user(user)
+                .build();
+    }
 }
