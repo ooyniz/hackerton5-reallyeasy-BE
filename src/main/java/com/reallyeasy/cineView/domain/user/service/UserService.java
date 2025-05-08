@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 @Slf4j
@@ -23,6 +25,10 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     public UserCreateResponse join(UserCreateRequest request) {
+        Optional<User> savedUser = userRepository.findByUserName(request.userName());
+
+        if (savedUser.isPresent()) throw new IllegalArgumentException();
+
         User user = User.builder()
                 .userName(request.userName())
                 .password(passwordEncoder.encode(request.password()))
