@@ -1,6 +1,7 @@
 package com.reallyeasy.cineView.domain.user.entity;
 
 import com.reallyeasy.cineView.domain.BaseTimeEntity;
+import com.reallyeasy.cineView.domain.favoriteMovie.entity.FavoriteMovie;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,9 @@ public class User extends BaseTimeEntity implements UserDetails {
     private Character gender;
 
     private String role;
+
+    @OneToMany(mappedBy = "user")
+    private List<FavoriteMovie> favorites;
 
     @Builder
     public User(String userName, String password, String name, String bio, Character gender, String role) {

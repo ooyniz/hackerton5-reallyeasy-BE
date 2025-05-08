@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/movies")
 @AllArgsConstructor
-public class Moviecontroller {
+public class MovieController {
+    private final Long userId = 1L;
     private final MovieService movieService;
 
     @GetMapping
@@ -31,4 +32,12 @@ public class Moviecontroller {
         return ResponseEntity.ok(movieService.getMovieById(movieId));
     }
 
+    @GetMapping("/favorite")
+    public Page<MovieResponse> getFavoriteMovies(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        return movieService.getFavoriteMovies(userId, pageable);
+    }
 }
