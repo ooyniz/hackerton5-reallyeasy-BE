@@ -2,15 +2,12 @@ package com.reallyeasy.cineView.domain.user.entity;
 
 import com.reallyeasy.cineView.domain.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
-import lombok.NoArgsConstructor;
 
 @Table(name = "users")
 @Getter
@@ -22,17 +19,22 @@ public class User extends BaseTimeEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Setter
     @Column(length = 50, nullable = false)
     private String userName;
 
+    @Setter
     private String password;
 
+    @Setter
     @Column(length = 50)
     private String name;
 
+    @Setter
     @Column(length = 100)
     private String bio;
 
+    @Setter
     private Character gender;
 
     private String role;
