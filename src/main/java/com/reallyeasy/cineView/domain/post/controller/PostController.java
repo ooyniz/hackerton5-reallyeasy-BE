@@ -32,15 +32,16 @@ public class PostController {
 
     @GetMapping
     public ResponseEntity<Page<PostResponse>> list(
-            @RequestParam(required = true) Category category,
+            @RequestParam(name = "category", required = true) Category category,
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Page<PostResponse> responses =  postService.getList(category, pageable);
+        Page<PostResponse> responses = postService.getList(category, pageable);
         return ResponseEntity.ok(responses);
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<PostWithCommentResponse> detail(@PathVariable Long id) {
+    public ResponseEntity<PostWithCommentResponse> detail(@PathVariable("id") Long id) {
         PostWithCommentResponse response = postService.getDetail(id);
         return ResponseEntity.ok(response);
     }
@@ -52,7 +53,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    public ResponseEntity<?> delete(@PathVariable("id") Long id, @AuthenticationPrincipal User user) {
         postService.delete(id, user.getId());
         return ResponseEntity.ok().build();
     }

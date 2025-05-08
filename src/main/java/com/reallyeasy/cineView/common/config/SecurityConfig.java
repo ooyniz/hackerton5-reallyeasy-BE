@@ -44,7 +44,7 @@ public class SecurityConfig {
         loginAuthenticationFilter.setFilterProcessesUrl("/api/v1/users/login");
 
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 적용
+                //.cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 적용
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable) // HTTP Basic 인증 비활성화
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
