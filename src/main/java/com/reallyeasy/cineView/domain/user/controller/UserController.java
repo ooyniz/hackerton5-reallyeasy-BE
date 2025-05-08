@@ -3,7 +3,6 @@ package com.reallyeasy.cineView.domain.user.controller;
 import com.reallyeasy.cineView.domain.user.dto.request.UserCreateRequest;
 import com.reallyeasy.cineView.domain.user.dto.request.UserUpdateRequest;
 import com.reallyeasy.cineView.domain.user.dto.response.UserCreateResponse;
-import com.reallyeasy.cineView.domain.user.dto.response.UserDeleteResponse;
 import com.reallyeasy.cineView.domain.user.dto.response.UserInfoResponse;
 import com.reallyeasy.cineView.domain.user.dto.response.UserUpdateResponse;
 import com.reallyeasy.cineView.domain.user.entity.User;

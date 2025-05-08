@@ -4,7 +4,9 @@ public record UserUpdateResponse(
         String newUserName,
         String newName,
         String newBio,
-        Character newGender,
-        boolean result
+        Character newGender
 ) {
+    public static UserUpdateResponse of(String newUserName, String newName, String newBio, Character newGender) {
+        return new UserUpdateResponse(newUserName, newName, newBio, newGender);
+    }
 }

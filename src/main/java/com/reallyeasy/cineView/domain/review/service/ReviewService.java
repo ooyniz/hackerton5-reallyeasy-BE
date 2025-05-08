@@ -25,9 +25,12 @@ public class ReviewService {
 
     public ReviewResponse createReview(ReviewRequest request, Long userId, Long movieId) {
         User user = userRepository.findById(userId).orElseThrow();
-        Movie move = movieRepository.findById(movieId).orElseThrow();
-        Review review = reviewRepository.save(new Review(request, user, move));
-        return new ReviewResponse(review);
+        Movie movie = movieRepository.findById(movieId).orElseThrow();
+
+        Review review = request.toEntity(user, movie);
+        reviewRepository.save(review);
+
+        return ReviewResponse.toDto(review);
     }
 
     public ReviewResponse updateReview(ReviewRequest request, Long userId, Long movieId, Long reviewId) {
@@ -41,7 +44,7 @@ public class ReviewService {
         review.updateContent(request.getContent());
         review.updateRating(request.getRating());
 
-        return new ReviewResponse(review);
+        return ReviewResponse.toDto(review);
     }
 
     public void deleteReview(Long userId, Long movieId, Long reviewId) {
@@ -58,11 +61,11 @@ public class ReviewService {
 
     public List<ReviewResponse> getReviewsByUser(Long userId) {
         List<Review> reviews = reviewRepository.findAllByUserIdAndDeletedAtIsNull(userId);
-        return reviews.stream().map(ReviewResponse::new).collect(Collectors.toList());
+        return reviews.stream().map(ReviewResponse::toDto).collect(Collectors.toList());
     }
 
     public ReviewResponse getReview(Long reviewId) {
         Review review = reviewRepository.findByIdAndDeletedAtIsNull(reviewId).orElseThrow();
-        return new ReviewResponse(review);
+        return ReviewResponse.toDto(review);
     }
 }

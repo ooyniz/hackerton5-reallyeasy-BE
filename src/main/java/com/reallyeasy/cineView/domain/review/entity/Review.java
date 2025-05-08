@@ -32,9 +32,9 @@ public class Review extends BaseTimeEntity {
     private Movie movie;
 
     @Builder
-    public Review(ReviewRequest request, User user, Movie movie) {
-        this.content = request.getContent();
-        this.rating = request.getRating();
+    private Review(String content, Integer rating, User user, Movie movie) {
+        this.content = content;
+        this.rating = rating;
         this.user = user;
         this.movie = movie;
     }
@@ -46,4 +46,5 @@ public class Review extends BaseTimeEntity {
     public void updateRating(int rating) {
         this.rating = rating;
     }
+
 }
