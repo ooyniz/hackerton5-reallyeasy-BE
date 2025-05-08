@@ -28,7 +28,7 @@ public class MovieScheduler {
     @PostConstruct
     public void init() {
         log.info("=== 애플리케이션 시작: 영화 데이터 초기화 ===");
-        updateMoviesDaily();
+        if (movieRepository.count() <= 0) updateMoviesDaily();
     }
 
     @Scheduled(cron = "0 0 2 * * *", zone = "Asia/Seoul") // 매일 새벽 2시 실행
