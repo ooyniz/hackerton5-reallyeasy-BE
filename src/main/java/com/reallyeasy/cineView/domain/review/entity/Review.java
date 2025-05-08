@@ -11,7 +11,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Table(name = "reviews")
 public class Review extends BaseTimeEntity {
     @Id
@@ -25,15 +24,16 @@ public class Review extends BaseTimeEntity {
     @Column(nullable = false)
     private Integer rating;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
     // todo : movieId
     @Column
     private Long movieId;
-//    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    private Movie movie;
 
+    @Builder
     public Review(ReviewRequest request, User user, Long movieId) {
         this.content = request.getContent();
         this.rating = request.getRating();

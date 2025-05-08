@@ -7,18 +7,17 @@ import lombok.Getter;
 import java.time.format.DateTimeFormatter;
 
 @Getter
-@AllArgsConstructor
 public class ReviewWithMovieResponse {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private Long reviewId;
-    private Long movieId; // todo: Movie 정보 추가
-    private Long reviewerId;
-    private String reviewer;
-    private String content;
-    private Integer rating;
-    private String createdAt;
-    private String updatedAt;
+    private final Long reviewId;
+    private final Long movieId; // todo: Movie 정보 추가
+    private final Long reviewerId;
+    private final String reviewer;
+    private final String content;
+    private final Integer rating;
+    private final String createdAt;
+    private final String updatedAt;
 
     public ReviewWithMovieResponse(Review review) {
         this.reviewId = review.getId();
