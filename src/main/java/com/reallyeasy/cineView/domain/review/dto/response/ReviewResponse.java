@@ -1,5 +1,6 @@
 package com.reallyeasy.cineView.domain.review.dto.response;
 
+import com.reallyeasy.cineView.domain.movie.entity.Movie;
 import com.reallyeasy.cineView.domain.review.entity.Review;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +26,7 @@ public class ReviewResponse {
 
     public ReviewResponse(Review review) {
         this.reviewId = review.getId();
-        this.movieId = review.getMovieId();
+        this.movieId = review.getMovie().getId();
         this.reviewerId = review.getUser().getId();
         this.reviewer = review.getUser().getName();
         this.content = review.getContent();

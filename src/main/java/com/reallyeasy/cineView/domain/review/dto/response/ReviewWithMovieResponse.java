@@ -21,7 +21,7 @@ public class ReviewWithMovieResponse {
 
     public ReviewWithMovieResponse(Review review) {
         this.reviewId = review.getId();
-        this.movieId = review.getMovieId();
+        this.movieId = review.getMovie().getTmdbId();
         this.reviewerId = review.getUser().getId();
         this.reviewer = review.getUser().getName();
         this.content = review.getContent();

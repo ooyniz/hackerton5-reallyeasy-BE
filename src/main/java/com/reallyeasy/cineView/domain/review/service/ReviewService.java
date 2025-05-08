@@ -1,5 +1,7 @@
 package com.reallyeasy.cineView.domain.review.service;
 
+import com.reallyeasy.cineView.domain.movie.entity.Movie;
+import com.reallyeasy.cineView.domain.movie.repository.MovieRepository;
 import com.reallyeasy.cineView.domain.review.dto.request.ReviewRequest;
 import com.reallyeasy.cineView.domain.review.dto.response.ReviewResponse;
 import com.reallyeasy.cineView.domain.review.dto.response.ReviewWithMovieResponse;
@@ -20,10 +22,12 @@ import java.util.stream.Collectors;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
 
     public ReviewResponse createReview(ReviewRequest request, Long userId, Long movieId) {
         User user = userRepository.findById(userId).orElseThrow();
-        Review review = reviewRepository.save(new Review(request, user, movieId));
+        Movie move = movieRepository.findByTmdbId(movieId).orElseThrow();
+        Review review = reviewRepository.save(new Review(request, user, move));
         return new ReviewResponse(review);
     }
 
@@ -32,9 +36,7 @@ public class ReviewService {
         if (!review.getUser().getId().equals(userId))
             throw new IllegalArgumentException("해당 리뷰를 수정할 권한이 없습니다.");
 
-        // todo: 영화 ID 일치 여부 확인
-        if (!review.getMovieId().equals(movieId))
-//        if (!review.getMovie().getId().equals(movieId))
+        if (!review.getMovie().getId().equals(movieId))
             throw new IllegalArgumentException("리뷰와 영화 정보가 일치하지 않습니다.");
 
         review.updateContent(request.getContent());
@@ -49,8 +51,7 @@ public class ReviewService {
             throw new IllegalArgumentException("해당 리뷰를 삭제할 권한이 없습니다.");
 
         // todo: 영화 ID 일치 여부 확인
-        if (!review.getMovieId().equals(movieId))
-//        if (!review.getMovie().getId().equals(movieId))
+        if (!review.getMovie().getId().equals(movieId))
             throw new IllegalArgumentException("리뷰와 영화 정보가 일치하지 않습니다.");
 
         review.markDeleted();

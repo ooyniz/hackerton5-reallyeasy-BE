@@ -2,6 +2,7 @@ package com.reallyeasy.cineView.domain.review.entity;
 
 
 import com.reallyeasy.cineView.domain.BaseTimeEntity;
+import com.reallyeasy.cineView.domain.movie.entity.Movie;
 import com.reallyeasy.cineView.domain.review.dto.request.ReviewRequest;
 import com.reallyeasy.cineView.domain.user.entity.User;
 import jakarta.persistence.*;
@@ -27,18 +28,15 @@ public class Review extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
-    // todo : movieId
-    @Column
-    private Long movieId;
-//    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    private Movie movie;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Movie movie;
 
     @Builder
-    public Review(ReviewRequest request, User user, Long movieId) {
+    public Review(ReviewRequest request, User user, Movie movie) {
         this.content = request.getContent();
         this.rating = request.getRating();
         this.user = user;
-        this.movieId = movieId;
+        this.movie = movie;
     }
 
     public void updateContent(String content) {
