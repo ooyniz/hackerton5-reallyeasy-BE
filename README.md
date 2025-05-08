@@ -15,4 +15,4 @@
 
 
 ### ERD
-![image](https://github.com/user-attachments/assets/c5d82e42-6720-4cc9-be03-1bb0ba7d990d)
+![image](https://github.com/user-attachments/assets/72b8ad2f-2835-40dd-ba30-0a09678a88de)
