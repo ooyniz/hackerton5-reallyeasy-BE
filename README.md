@@ -1,4 +1,4 @@
-# hackerton5--
+# reallyEasy팀의 cineView 프로젝트 입니다.☺️
 
 ### Commit Convention
 
@@ -15,4 +15,4 @@
 
 
 ### ERD
-![image](https://github.com/user-attachments/assets/72b8ad2f-2835-40dd-ba30-0a09678a88de)
+![image](https://github.com/user-attachments/assets/1a7926f1-8db7-42b4-b69c-f499021a2b9a)
