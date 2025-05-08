@@ -2,11 +2,14 @@ package com.reallyeasy.cineView.domain.movie.entity;
 
 
 import com.reallyeasy.cineView.domain.movie.dto.request.MovieRequest;
+import com.reallyeasy.cineView.domain.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Length;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @ToString
@@ -47,6 +50,9 @@ public class Movie {
 
     @Version
     private Long version;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 
     @Builder
     public Movie(Long tmdbId, String title, String originalLanguage, String overview, String posterPath, LocalDate releaseDate) {

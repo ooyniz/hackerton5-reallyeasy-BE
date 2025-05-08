@@ -26,7 +26,7 @@ public class ReviewService {
 
     public ReviewResponse createReview(ReviewRequest request, Long userId, Long movieId) {
         User user = userRepository.findById(userId).orElseThrow();
-        Movie move = movieRepository.findByTmdbId(movieId).orElseThrow();
+        Movie move = movieRepository.findById(movieId).orElseThrow();
         Review review = reviewRepository.save(new Review(request, user, move));
         return new ReviewResponse(review);
     }
