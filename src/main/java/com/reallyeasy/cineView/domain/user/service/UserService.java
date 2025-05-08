@@ -2,16 +2,17 @@ package com.reallyeasy.cineView.domain.user.service;
 
 import com.reallyeasy.cineView.common.jwt.JwtKey;
 import com.reallyeasy.cineView.domain.user.dto.request.UserCreateRequest;
-import com.reallyeasy.cineView.domain.user.dto.request.UserDeleteRequest;
 import com.reallyeasy.cineView.domain.user.dto.request.UserUpdateRequest;
 import com.reallyeasy.cineView.domain.user.dto.response.UserCreateResponse;
 import com.reallyeasy.cineView.domain.user.dto.response.UserDeleteResponse;
+import com.reallyeasy.cineView.domain.user.dto.response.UserInfoResponse;
 import com.reallyeasy.cineView.domain.user.dto.response.UserUpdateResponse;
 import com.reallyeasy.cineView.domain.user.entity.User;
 import com.reallyeasy.cineView.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -41,8 +42,8 @@ public class UserService {
         return userRepository.existsByUserName(userName); // TODO:Exception 처리
     }
 
-    public UserUpdateResponse update(UserUpdateRequest request) {
-        User user = userRepository.findById(request.id())
+    public UserUpdateResponse update(UserUpdateRequest request, Long userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
         String newUserName = request.newUserName() == null ? user.getUsername() : request.newUserName();
@@ -66,15 +67,14 @@ public class UserService {
         );
     }
 
-    public UserDeleteResponse delete(UserDeleteRequest request) {
-        User user = userRepository.findById(request.id()).orElseThrow();
+    @Transactional
+    public void delete(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        user.markDeleted();
+    }
 
-        try {
-            userRepository.delete(user);
-        } catch (Exception e) {
-            return new UserDeleteResponse("Failed to delete user", false);
-        }
-
-        return new UserDeleteResponse("Success to delete user", true);
+    public UserInfoResponse getUserInfo(Long userId) {
+        User user = userRepository.findByIdAndDeletedAtIsNull(userId).orElseThrow();
+        return new UserInfoResponse(user);
     }
 }
