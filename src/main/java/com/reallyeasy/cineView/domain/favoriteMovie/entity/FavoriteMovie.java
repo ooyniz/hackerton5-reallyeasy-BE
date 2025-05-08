@@ -9,7 +9,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Table(name = "movie_favorites")
 public class FavoriteMovie extends BaseTimeEntity {
     @Id
@@ -21,9 +20,10 @@ public class FavoriteMovie extends BaseTimeEntity {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Movie movie;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    @Builder
     public FavoriteMovie(Long movieId, User user) {
         this.movieId = movieId;
         this.user = user;
