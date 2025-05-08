@@ -7,26 +7,28 @@ import com.reallyeasy.cineView.domain.post.dto.response.PostListResponse;
 import com.reallyeasy.cineView.domain.post.dto.response.PostResponse;
 import com.reallyeasy.cineView.domain.post.dto.response.PostWithCommentResponse;
 import com.reallyeasy.cineView.domain.post.service.PostService;
+import com.reallyeasy.cineView.domain.user.entity.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/posts")
+@Slf4j
 public class PostController {
-    private final Long userId = 1L; //TODO
-
     private final PostService postService;
 
     @PostMapping
-    public PostApi<PostResponse> creat(@Valid @RequestBody PostCreateRequest request) {
-        PostResponse response = postService.create(request, userId);
+    public PostApi<PostResponse> creat(@Valid @RequestBody PostCreateRequest request, @AuthenticationPrincipal User user) {
+        PostResponse response = postService.create(request, user.getId());
 
         return PostApi.<PostResponse>builder()
                 .resultCode(String.valueOf(HttpStatus.OK.value()))
@@ -59,9 +61,9 @@ public class PostController {
     @PatchMapping("/{id}")
     public PostApi<PostResponse> update(
             @Valid @RequestBody PostCreateRequest request,
-            @PathVariable Long id
+            @PathVariable Long id, @AuthenticationPrincipal User user
     ) {
-        PostResponse response = postService.update(request, id, userId);
+        PostResponse response = postService.update(request, id, user.getId());
         return PostApi.<PostResponse>builder()
                 .resultCode(String.valueOf(HttpStatus.OK.value()))
                 .resultMessage(HttpStatus.OK.getReasonPhrase())
@@ -71,9 +73,9 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public PostApi<PostResponse> delete(
-            @PathVariable Long id
+            @PathVariable Long id, @AuthenticationPrincipal User user
     ) {
-        postService.delete(id, userId);
+        postService.delete(id, user.getId());
         return PostApi.<PostResponse>builder()
                 .resultCode(String.valueOf(HttpStatus.OK.value()))
                 .resultMessage(HttpStatus.OK.getReasonPhrase())
