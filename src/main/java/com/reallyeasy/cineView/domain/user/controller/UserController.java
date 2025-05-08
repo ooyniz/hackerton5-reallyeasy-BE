@@ -1,7 +1,11 @@
 package com.reallyeasy.cineView.domain.user.controller;
 
 import com.reallyeasy.cineView.domain.user.dto.request.UserCreateRequest;
+import com.reallyeasy.cineView.domain.user.dto.request.UserDeleteRequest;
+import com.reallyeasy.cineView.domain.user.dto.request.UserUpdateRequest;
 import com.reallyeasy.cineView.domain.user.dto.response.UserCreateResponse;
+import com.reallyeasy.cineView.domain.user.dto.response.UserDeleteResponse;
+import com.reallyeasy.cineView.domain.user.dto.response.UserUpdateResponse;
 import com.reallyeasy.cineView.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +25,17 @@ public class UserController {
     }
 
     @GetMapping("/{username}/exists")
-    public ResponseEntity<Boolean> checkUserNameDuplicate(@PathVariable String userName) {
+    public ResponseEntity<Boolean> checkUserNameDuplicate(@PathVariable("username") String userName) {
         return ResponseEntity.ok(userService.checkUserNameDuplicate(userName));
+    }
+
+    @PatchMapping("/update")
+    public ResponseEntity<UserUpdateResponse> update(@RequestBody UserUpdateRequest request) {
+        return ResponseEntity.ok(userService.update(request));
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<UserDeleteResponse> delete(@RequestBody UserDeleteRequest request) {
+        return ResponseEntity.ok(userService.delete(request));
     }
 }

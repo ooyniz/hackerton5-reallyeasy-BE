@@ -32,3 +32,6 @@ springdoc:
       paths-to-match: /api/v1/users/**
     - group: posts
       paths-to-match: /api/v1/posts/**
+tmdb:
+  api:
+    key: ${TMDB_API_KEY}
