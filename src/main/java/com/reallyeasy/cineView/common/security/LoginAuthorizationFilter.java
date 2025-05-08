@@ -34,24 +34,7 @@ public class LoginAuthorizationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = null;
 
-        // 요청에서 JWT 쿠키를 찾음
-        try {
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                token = Arrays.stream(cookies)
-                        .filter(cookie -> JwtProperties.COOKIE_NAME.equals(cookie.getName()))
-                        .map(Cookie::getValue)
-                        .findFirst()
-                        .orElse(null);
-            }
-
-            if (token == null) {
-                String header = request.getHeader("Authorization");
-                if (header != null && header.startsWith("Bearer ")) {
-                    token = header.substring(7); // "Bearer " 이후 토큰
-                }
-            }
-        } catch (Exception ignored) {}
+        token = extractToken(request);
 
         // JWT가 존재하면 사용자 인증 시도
         if (token != null && token.split("\\.").length == 3) {
@@ -89,5 +72,30 @@ public class LoginAuthorizationFilter extends OncePerRequestFilter {
             return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
         }
         return null;
+    }
+
+    public static String extractToken(HttpServletRequest request) {
+        // 1. 쿠키에서 추출
+        String token = null;
+        try {
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                token = Arrays.stream(cookies)
+                        .filter(cookie -> JwtProperties.COOKIE_NAME.equals(cookie.getName()))
+                        .map(Cookie::getValue)
+                        .findFirst()
+                        .orElse(null);
+            }
+        } catch (Exception ignored) {}
+
+        // 2. 쿠키가 없거나 토큰이 이상하면 → 헤더에서 추출
+        if (token == null || token.split("\\.").length != 3) {
+            String header = request.getHeader("Authorization");
+            if (header != null && header.startsWith("Bearer ")) {
+                token = header.substring(7);
+            }
+        }
+
+        return token;
     }
 }
