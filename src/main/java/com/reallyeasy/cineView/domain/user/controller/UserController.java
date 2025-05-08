@@ -1,7 +1,9 @@
 package com.reallyeasy.cineView.domain.user.controller;
 
 import com.reallyeasy.cineView.domain.user.dto.request.UserCreateRequest;
+import com.reallyeasy.cineView.domain.user.dto.request.UserLoginRequest;
 import com.reallyeasy.cineView.domain.user.dto.response.UserCreateResponse;
+import com.reallyeasy.cineView.domain.user.dto.response.UserLoginResponse;
 import com.reallyeasy.cineView.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/{username}/exists")
-    public ResponseEntity<Boolean> checkUserNameDuplicate(@PathVariable String userName) {
+    public ResponseEntity<Boolean> checkUserNameDuplicate(@PathVariable("username") String userName) {
         return ResponseEntity.ok(userService.checkUserNameDuplicate(userName));
     }
 }
