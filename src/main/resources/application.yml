@@ -32,6 +32,14 @@ springdoc:
       paths-to-match: /api/v1/users/**
     - group: posts
       paths-to-match: /api/v1/posts/**
+    - group: reviews
+      paths-to-match: /api/v1/reviews/**
+    - group: favorite-movies
+      paths-to-match: /api/v1/favorite-movies/**
+    - group: comments
+      paths-to-match: /api/v1/comments/**
+    - group: movies
+      paths-to-match: /api/v1/movies/**
 tmdb:
   api:
     key: ${TMDB_API_KEY}
