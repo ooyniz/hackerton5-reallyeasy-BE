@@ -9,7 +9,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder
 @Table(name = "comments")
 public class Comment extends BaseTimeEntity {
     @Id
@@ -25,9 +24,15 @@ public class Comment extends BaseTimeEntity {
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Post post;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
+    @Builder
+    public Comment(User user, Long postId, String content) {
+        this.user = user;
+        this.postId = postId;
+        this.content = content;
+    }
     public void updateContent(String content) {
         this.content = content;
     }
