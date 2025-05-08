@@ -18,6 +18,7 @@ public class ReviewResponse {
     private final Long reviewId;
     private final Long movieId;
     private final Long tmdbId;
+    private final String posterPath;
     private final Long reviewerId;
     private final String reviewer;
     private final String content;
@@ -29,6 +30,7 @@ public class ReviewResponse {
         this.reviewId = review.getId();
         this.movieId = review.getMovie().getId();
         this.tmdbId = review.getMovie().getTmdbId();
+        this.posterPath = review.getMovie().getPosterPath();
         this.reviewerId = review.getUser().getId();
         this.reviewer = review.getUser().getName();
         this.content = review.getContent();
