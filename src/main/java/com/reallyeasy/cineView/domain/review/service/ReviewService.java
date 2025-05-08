@@ -4,7 +4,6 @@ import com.reallyeasy.cineView.domain.movie.entity.Movie;
 import com.reallyeasy.cineView.domain.movie.repository.MovieRepository;
 import com.reallyeasy.cineView.domain.review.dto.request.ReviewRequest;
 import com.reallyeasy.cineView.domain.review.dto.response.ReviewResponse;
-import com.reallyeasy.cineView.domain.review.dto.response.ReviewWithMovieResponse;
 import com.reallyeasy.cineView.domain.review.entity.Review;
 import com.reallyeasy.cineView.domain.review.repository.ReviewRepository;
 import com.reallyeasy.cineView.domain.user.entity.User;
@@ -60,11 +59,6 @@ public class ReviewService {
     public List<ReviewResponse> getReviewsByUser(Long userId) {
         List<Review> reviews = reviewRepository.findAllByUserIdAndDeletedAtIsNull(userId);
         return reviews.stream().map(ReviewResponse::new).collect(Collectors.toList());
-    }
-
-    public List<ReviewWithMovieResponse> getReviewsByMovie(Long movieId) {
-        List<Review> reviews = reviewRepository.findAllByMovieIdAndDeletedAtIsNull(movieId);
-        return reviews.stream().map(ReviewWithMovieResponse::new).collect(Collectors.toList());
     }
 
     public ReviewResponse getReview(Long reviewId) {

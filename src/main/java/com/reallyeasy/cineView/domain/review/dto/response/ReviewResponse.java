@@ -16,7 +16,8 @@ public class ReviewResponse {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final Long reviewId;
-    private final Long movieId; // todo: Movie 정보 추가
+    private final Long movieId;
+    private final Long tmdbId;
     private final Long reviewerId;
     private final String reviewer;
     private final String content;
@@ -27,6 +28,7 @@ public class ReviewResponse {
     public ReviewResponse(Review review) {
         this.reviewId = review.getId();
         this.movieId = review.getMovie().getId();
+        this.tmdbId = review.getMovie().getTmdbId();
         this.reviewerId = review.getUser().getId();
         this.reviewer = review.getUser().getName();
         this.content = review.getContent();
