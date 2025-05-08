@@ -9,6 +9,7 @@ public class ApiPath {
     public static final String BASE_COMMENT = "/api/v1/comments";
     public static final String BASE_MOVIE = "/api/v1/movies";
 
+    public static final String LOGIN = BASE_USER + "/login";
     public static final String JOIN = BASE_USER + "/join";
     public static final String CHECK_USERNAME = BASE_USER + "/{username}/exists";
     public static final String ERROR_PAGE = "/error";
@@ -40,7 +41,8 @@ public class ApiPath {
             REVIEW_API,
             FAVORITE_MOVIES_API,
             COMMENTS_API,
-            MOVIE_API
+            MOVIE_API,
+            LOGIN
     };
 
     private ApiPath() {

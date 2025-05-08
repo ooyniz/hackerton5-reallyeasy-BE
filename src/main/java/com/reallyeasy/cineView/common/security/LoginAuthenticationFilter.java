@@ -69,6 +69,9 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
                 user.getGender()
         );
 
+        // 헤더에 토큰 추가
+        response.addHeader("Authorization", token);
+
         // JSON 응답
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);

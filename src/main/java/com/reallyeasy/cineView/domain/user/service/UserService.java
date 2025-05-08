@@ -39,7 +39,7 @@ public class UserService {
     }
 
     public Boolean checkUserNameDuplicate(String userName) {
-        return userRepository.existsByUserName(userName); // TODO:Exception 처리
+        return !userRepository.existsByUserName(userName); // TODO:Exception 처리
     }
 
     public UserUpdateResponse update(UserUpdateRequest request, Long userId) {
