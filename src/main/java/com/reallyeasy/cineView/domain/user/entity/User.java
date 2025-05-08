@@ -20,22 +20,17 @@ public class User extends BaseTimeEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
     @Column(length = 50, nullable = false)
     private String userName;
 
-    @Setter
     private String password;
 
-    @Setter
     @Column(length = 50)
     private String name;
 
-    @Setter
     @Column(length = 100)
     private String bio;
 
-    @Setter
     private Character gender;
 
     private String role;
@@ -51,6 +46,14 @@ public class User extends BaseTimeEntity implements UserDetails {
         this.bio = bio;
         this.gender = gender;
         this.role = role;
+    }
+
+    public void updateUser(String userName, String password, String name, String bio, Character gender) {
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.bio = bio;
+        this.gender = gender;
     }
 
     @Override

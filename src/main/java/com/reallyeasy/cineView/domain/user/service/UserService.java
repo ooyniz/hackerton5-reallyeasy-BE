@@ -45,12 +45,15 @@ public class UserService {
         User user = userRepository.findById(request.id())
                 .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
 
-        user.setUserName(request.newUserName() == null ? user.getUsername() : request.newUserName());
-        user.setPassword(request.newPassword() == null || request.newPassword().isBlank()
+        String newUserName = request.newUserName() == null ? user.getUsername() : request.newUserName();
+        String newPassword = request.newPassword() == null || request.newPassword().isBlank()
                 ? user.getPassword()
-                : passwordEncoder.encode(request.newPassword()));
-        user.setName(request.newName() == null ? user.getName() : request.newName());
-        user.setGender(request.newGender() == null ? user.getGender() : request.newGender());
+                : passwordEncoder.encode(request.newPassword());
+        String newName = request.newName() == null ? user.getName() : request.newName();
+        String newBio = request.newBio() == null ? user.getBio() : request.newBio();
+        char newGender = request.newGender() == null ? user.getGender() : request.newGender();
+
+        user.updateUser(newUserName, newPassword, newName, newBio, newGender);
 
         userRepository.save(user);
 
