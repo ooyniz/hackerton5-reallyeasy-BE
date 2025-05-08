@@ -31,7 +31,7 @@ public class MovieService {
                 .orElseThrow(() -> new RuntimeException("영화를 찾을 수 없습니다."));
 
         List<ReviewResponse> reviews = movie.getReviews().stream()
-                .map(ReviewResponse::new)
+                .map(ReviewResponse::toDto)
                 .toList();
 
         return new MovieWithReviewResponse(

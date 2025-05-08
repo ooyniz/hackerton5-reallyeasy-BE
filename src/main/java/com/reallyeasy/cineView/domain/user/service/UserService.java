@@ -4,23 +4,23 @@ import com.reallyeasy.cineView.common.jwt.JwtKey;
 import com.reallyeasy.cineView.domain.user.dto.request.UserCreateRequest;
 import com.reallyeasy.cineView.domain.user.dto.request.UserUpdateRequest;
 import com.reallyeasy.cineView.domain.user.dto.response.UserCreateResponse;
-import com.reallyeasy.cineView.domain.user.dto.response.UserDeleteResponse;
 import com.reallyeasy.cineView.domain.user.dto.response.UserInfoResponse;
 import com.reallyeasy.cineView.domain.user.dto.response.UserUpdateResponse;
 import com.reallyeasy.cineView.domain.user.entity.User;
 import com.reallyeasy.cineView.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtKey jwtKey;
 
     public UserCreateResponse join(UserCreateRequest request) {
         User user = User.builder()
@@ -48,33 +48,25 @@ public class UserService {
 
         String newUserName = request.newUserName() == null ? user.getUsername() : request.newUserName();
         String newPassword = request.newPassword() == null || request.newPassword().isBlank()
-                ? user.getPassword()
-                : passwordEncoder.encode(request.newPassword());
+                ? user.getPassword() : passwordEncoder.encode(request.newPassword());
         String newName = request.newName() == null ? user.getName() : request.newName();
         String newBio = request.newBio() == null ? user.getBio() : request.newBio();
-        char newGender = request.newGender() == null ? user.getGender() : request.newGender();
+        Character newGender = request.newGender() == null ? user.getGender() : request.newGender();
 
         user.updateUser(newUserName, newPassword, newName, newBio, newGender);
-
         userRepository.save(user);
 
-        return new UserUpdateResponse(
-                user.getUsername(),
-                user.getUsername(),
-                user.getBio(),
-                user.getGender(),
-                true
-        );
+        return UserUpdateResponse.of(newUserName, newName, newBio, newGender);
     }
 
-    @Transactional
     public void delete(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         user.markDeleted();
     }
 
     public UserInfoResponse getUserInfo(Long userId) {
+        log.info(userId.toString());
         User user = userRepository.findByIdAndDeletedAtIsNull(userId).orElseThrow();
-        return new UserInfoResponse(user);
+        return UserInfoResponse.of(user);
     }
 }

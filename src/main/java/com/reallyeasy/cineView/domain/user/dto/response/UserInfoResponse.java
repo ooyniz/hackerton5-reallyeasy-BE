@@ -1,21 +1,16 @@
 package com.reallyeasy.cineView.domain.user.dto.response;
 
 import com.reallyeasy.cineView.domain.user.entity.User;
-import lombok.Getter;
 
-@Getter
-public class UserInfoResponse {
-    private final Long userId;
-    private final String userName;
-    private final String name;
-    private final String bio;
-    private final char gender;
+public record UserInfoResponse(Long userId, String userName, String name, String bio, Character gender) {
 
-    public UserInfoResponse(User user) {
-        this.userId = user.getId();
-        this.userName = user.getUsername();
-        this.name = user.getName();
-        this.bio = user.getBio();
-        this.gender = user.getGender();
+    public static UserInfoResponse of(User user) {
+        return new UserInfoResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getName(),
+                user.getBio(),
+                user.getGender()
+        );
     }
 }

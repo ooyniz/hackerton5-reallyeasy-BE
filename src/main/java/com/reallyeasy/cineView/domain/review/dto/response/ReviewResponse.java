@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Getter
+@AllArgsConstructor
 public class ReviewResponse {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -26,16 +27,18 @@ public class ReviewResponse {
     private final String createdAt;
     private final String updatedAt;
 
-    public ReviewResponse(Review review) {
-        this.reviewId = review.getId();
-        this.movieId = review.getMovie().getId();
-        this.tmdbId = review.getMovie().getTmdbId();
-        this.posterPath = review.getMovie().getPosterPath();
-        this.reviewerId = review.getUser().getId();
-        this.reviewer = review.getUser().getName();
-        this.content = review.getContent();
-        this.rating = review.getRating();
-        this.createdAt = review.getCreatedAt().format(FORMATTER);
-        this.updatedAt = review.getUpdatedAt().format(FORMATTER);
+    public static ReviewResponse toDto(Review review) {
+        return new ReviewResponse(
+                review.getId(),
+                review.getMovie().getId(),
+                review.getMovie().getTmdbId(),
+                review.getMovie().getPosterPath(),
+                review.getUser().getId(),
+                review.getUser().getUsername(),
+                review.getContent(),
+                review.getRating(),
+                review.getCreatedAt().format(FORMATTER),
+                review.getUpdatedAt().format(FORMATTER)
+        );
     }
 }

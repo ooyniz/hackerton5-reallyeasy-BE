@@ -11,7 +11,5 @@ import java.util.Optional;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findAllByUserIdAndDeletedAtIsNull(Long userId);
 
-    List<Review> findAllByMovieIdAndDeletedAtIsNull(Long movieId);
-
     Optional<Review> findByIdAndDeletedAtIsNull(Long reviewId);
 }
