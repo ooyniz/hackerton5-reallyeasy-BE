@@ -61,6 +61,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         String token = JwtUtils.createToken(user);
 
         UserLoginResponse userLoginResponse = new UserLoginResponse(
+                user.getId(),
                 user.getUsername(),
                 user.getName(),
                 user.getBio(),

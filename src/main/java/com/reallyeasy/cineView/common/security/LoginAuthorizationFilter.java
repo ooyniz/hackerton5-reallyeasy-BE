@@ -44,6 +44,13 @@ public class LoginAuthorizationFilter extends OncePerRequestFilter {
                         .findFirst()
                         .orElse(null);
             }
+
+            if (token == null) {
+                String header = request.getHeader("Authorization");
+                if (header != null && header.startsWith("Bearer ")) {
+                    token = header.substring(7); // "Bearer " 이후 토큰
+                }
+            }
         } catch (Exception ignored) {}
 
         // JWT가 존재하면 사용자 인증 시도
