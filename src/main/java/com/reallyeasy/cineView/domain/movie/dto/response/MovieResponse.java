@@ -12,10 +12,10 @@ public class MovieResponse {
     private Long movieId;
     private Long tmdbId;
     private String title;
-    private String original_language;
+    private String originalLanguage;
     private String overview;
-    private String poster_path;
-    private LocalDate release_date;
+    private String posterPath;
+    private LocalDate releaseDate;
 
     public static MovieResponse from(Movie movie) {
         return new MovieResponse(
