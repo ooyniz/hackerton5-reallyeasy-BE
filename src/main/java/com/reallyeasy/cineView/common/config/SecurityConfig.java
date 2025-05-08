@@ -44,6 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers(ALL_USER_API_PATHS).permitAll()
+                        .requestMatchers(NEED_GRANT_API_PATHS).hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout
