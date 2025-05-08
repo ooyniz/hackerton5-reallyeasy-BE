@@ -1,13 +1,11 @@
 package com.reallyeasy.cineView.common.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.reallyeasy.cineView.common.jwt.JwtProperties;
 import com.reallyeasy.cineView.common.jwt.JwtUtils;
 import com.reallyeasy.cineView.domain.user.dto.response.UserLoginResponse;
 import com.reallyeasy.cineView.domain.user.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -84,8 +82,19 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request,
                                               HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        // 로그인 실패 → 로그인 페이지로 이동
-        response.sendRedirect("/login");
+        response.setContentType("application/json;charset=UTF-8");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+        String errorMessage = switch (failed.getClass().getSimpleName()) {
+            case "BadCredentialsException" -> "아이디 또는 비밀번호가 잘못되었습니다.";
+            case "DisabledException" -> "비활성화된 계정입니다.";
+            case "LockedException" -> "잠긴 계정입니다.";
+            default -> "로그인에 실패하였습니다.";
+        };
+
+        response.getWriter().write(
+                String.format("{\"error\": \"%s\"}", errorMessage)
+        );
     }
 }
 
