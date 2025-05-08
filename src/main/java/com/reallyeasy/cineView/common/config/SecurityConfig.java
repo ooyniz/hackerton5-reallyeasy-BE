@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .addFilterBefore(new LoginAuthorizationFilter(userRepository), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/swagger").permitAll() // swagger
                         .requestMatchers(ALL_USER_API_PATHS).permitAll()
                         .requestMatchers(NEED_GRANT_API_PATHS).hasRole("USER")
                         .anyRequest().authenticated()
