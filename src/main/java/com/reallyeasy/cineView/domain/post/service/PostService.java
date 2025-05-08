@@ -2,10 +2,7 @@ package com.reallyeasy.cineView.domain.post.service;
 
 import com.reallyeasy.cineView.common.enums.Category;
 import com.reallyeasy.cineView.domain.post.dto.request.PostCreateRequest;
-import com.reallyeasy.cineView.domain.post.dto.response.Pagination;
-import com.reallyeasy.cineView.domain.post.dto.response.PostApi;
-import com.reallyeasy.cineView.domain.post.dto.response.PostListResponse;
-import com.reallyeasy.cineView.domain.post.dto.response.PostResponse;
+import com.reallyeasy.cineView.domain.post.dto.response.*;
 import com.reallyeasy.cineView.domain.post.entity.Post;
 import com.reallyeasy.cineView.domain.post.repository.PostRepository;
 import com.reallyeasy.cineView.domain.user.entity.User;
@@ -73,10 +70,10 @@ public class PostService {
     /**
      * 게시글 상세 조회
      */
-    public PostResponse getDetail(Long id) {
-        Post entity = postRepository.findById(id)
+    public PostWithCommentResponse getDetail(Long id) {
+        Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 게시글이 존재하지 않습니다."));
-        return postConverter.toResponse(entity);
+        return new PostWithCommentResponse(post);
     }
 
     /**
