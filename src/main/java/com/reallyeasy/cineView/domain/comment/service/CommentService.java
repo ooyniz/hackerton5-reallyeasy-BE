@@ -5,6 +5,8 @@ import com.reallyeasy.cineView.domain.comment.dto.response.CommentForUserRespons
 import com.reallyeasy.cineView.domain.comment.dto.response.CommentResponse;
 import com.reallyeasy.cineView.domain.comment.entity.Comment;
 import com.reallyeasy.cineView.domain.comment.repository.CommentRepository;
+import com.reallyeasy.cineView.domain.post.entity.Post;
+import com.reallyeasy.cineView.domain.post.repository.PostRepository;
 import com.reallyeasy.cineView.domain.user.entity.User;
 import com.reallyeasy.cineView.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -20,13 +22,14 @@ import java.util.stream.Collectors;
 public class CommentService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
+    private final PostRepository postRepository;
 
     public CommentResponse createComment(CommentRequest request, Long postId, Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
-        // todo post
+        Post post = postRepository.findById(postId).orElseThrow();
         Comment comment = Comment.builder()
                 .user(user)
-                .postId(postId)
+                .post(post)
                 .content(request.getContent()).build();
         return new CommentResponse(commentRepository.save(comment));
     }

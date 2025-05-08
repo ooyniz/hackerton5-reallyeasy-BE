@@ -1,6 +1,7 @@
 package com.reallyeasy.cineView.domain.comment.entity;
 
 import com.reallyeasy.cineView.domain.BaseTimeEntity;
+import com.reallyeasy.cineView.domain.post.entity.Post;
 import com.reallyeasy.cineView.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,20 +20,19 @@ public class Comment extends BaseTimeEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
-    // todo
-    private Long postId;
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Post post;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private User user;
 
     @Builder
-    public Comment(User user, Long postId, String content) {
+    public Comment(User user, Post post, String content) {
         this.user = user;
-        this.postId = postId;
+        this.post = post;
         this.content = content;
     }
+
     public void updateContent(String content) {
         this.content = content;
     }

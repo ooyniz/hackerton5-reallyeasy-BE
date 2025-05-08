@@ -5,6 +5,7 @@ import com.reallyeasy.cineView.domain.post.dto.request.PostCreateRequest;
 import com.reallyeasy.cineView.domain.post.dto.response.PostApi;
 import com.reallyeasy.cineView.domain.post.dto.response.PostListResponse;
 import com.reallyeasy.cineView.domain.post.dto.response.PostResponse;
+import com.reallyeasy.cineView.domain.post.dto.response.PostWithCommentResponse;
 import com.reallyeasy.cineView.domain.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -47,15 +49,11 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public PostApi<PostResponse> detail(
+    public ResponseEntity<PostWithCommentResponse> detail(
             @PathVariable Long id
     ) {
-        PostResponse response = postService.getDetail(id);
-        return PostApi.<PostResponse>builder()
-                .resultCode(String.valueOf(HttpStatus.OK.value()))
-                .resultMessage(HttpStatus.OK.getReasonPhrase())
-                .body(response)
-                .build();
+        PostWithCommentResponse response = postService.getDetail(id);
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping("/{id}")
