@@ -19,10 +19,14 @@ public class CommentResponse {
 
     public CommentResponse(Comment comment) {
         this.commentId = comment.getId();
-        this.content = comment.getContent();
         this.postId = comment.getPost().getId();
         this.userId = comment.getUser().getId();
+        this.content = comment.getContent();
         this.createdAt = comment.getCreatedAt().format(FORMATTER);
         this.updatedAt = comment.getUpdatedAt().format(FORMATTER);
+    }
+
+    public static CommentResponse toDto(Comment comment) {
+        return new CommentResponse(comment);
     }
 }

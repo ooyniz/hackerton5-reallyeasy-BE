@@ -27,11 +27,9 @@ public class CommentService {
     public CommentResponse createComment(CommentRequest request, Long postId, Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
         Post post = postRepository.findById(postId).orElseThrow();
-        Comment comment = Comment.builder()
-                .user(user)
-                .post(post)
-                .content(request.getContent()).build();
-        return new CommentResponse(commentRepository.save(comment));
+        Comment comment = request.toEntity(post, user);
+        commentRepository.save(comment);
+        return CommentResponse.toDto(comment);
     }
 
     public CommentResponse updateComment(CommentRequest request, Long commentId, Long userId) {
@@ -40,7 +38,8 @@ public class CommentService {
         if (!comment.getUser().getId().equals(userId)) throw new IllegalArgumentException("댓글 수정 권한이 없습니다.");
 
         comment.updateContent(request.getContent());
-        return new CommentResponse(comment);
+
+        return CommentResponse.toDto(comment);
     }
 
     public void deleteComment(Long commentId, Long userId) {
@@ -51,21 +50,21 @@ public class CommentService {
 
     public CommentResponse getComment(Long commentId) {
         Comment comment = commentRepository.findByIdAndDeletedAtIsNull(commentId);
-        return new CommentResponse(comment);
+        return CommentResponse.toDto(comment);
     }
 
     public List<CommentResponse> getCommentsByPost(Long postId) {
         List<Comment> comments = commentRepository.findAllByPostIdAndDeletedAtIsNull(postId);
 
         return comments.stream()
-                .map(CommentResponse::new)
+                .map(CommentResponse::toDto)
                 .collect(Collectors.toList());
     }
 
     public List<CommentForUserResponse> getCommentsByUser(Long userId) {
         List<Comment> comments = commentRepository.findAllByUserIdAndDeletedAtIsNull(userId);
         return comments.stream()
-                .map(CommentForUserResponse::new)
+                .map(CommentForUserResponse::toDto)
                 .collect(Collectors.toList());
     }
 }

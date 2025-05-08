@@ -1,9 +1,7 @@
 package com.reallyeasy.cineView.domain.comment.dto.response;
 
 import com.reallyeasy.cineView.domain.comment.entity.Comment;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.format.DateTimeFormatter;
 
@@ -31,4 +29,7 @@ public class CommentForUserResponse {
         this.updatedAt = comment.getUpdatedAt().format(FORMATTER);
     }
 
+    public static CommentForUserResponse toDto(Comment comment) {
+        return new CommentForUserResponse(comment);
+    }
 }

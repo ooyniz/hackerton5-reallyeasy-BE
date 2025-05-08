@@ -17,7 +17,6 @@ public class PostWithCommentResponse {
     private final String authorName;
     private final String createdAt;
     private final String updatedAt;
-
     private final List<CommentResponse> comments;
 
     public PostWithCommentResponse(Post post) {
