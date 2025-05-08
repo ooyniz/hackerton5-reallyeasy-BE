@@ -23,7 +23,7 @@ public class MovieService {
 
     public Page<MovieResponse> getMovies(Pageable pageable) {
         return movieRepository.findAll(pageable)
-                .map(MovieResponse::from);
+                .map(MovieResponse::toDto);
     }
 
     public MovieWithReviewResponse getMovieById(Long movieId) {
@@ -48,6 +48,6 @@ public class MovieService {
 
     public Page<MovieResponse> getFavoriteMovies(Long userId, Pageable pageable) {
         Page<Movie> movies = favoriteMovieRepository.findMoviesByUserId(userId, pageable);
-        return movies.map(MovieResponse::from);
+        return movies.map(MovieResponse::toDto);
     }
 }

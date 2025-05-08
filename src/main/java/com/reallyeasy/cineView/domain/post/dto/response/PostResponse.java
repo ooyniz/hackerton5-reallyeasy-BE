@@ -3,22 +3,20 @@ package com.reallyeasy.cineView.domain.post.dto.response;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.reallyeasy.cineView.common.enums.Category;
+import com.reallyeasy.cineView.domain.post.entity.Post;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PostResponse {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private Long id;
-
-    private Category category;
 
     private String categoryName;
 
@@ -31,9 +29,22 @@ public class PostResponse {
 
     private Long userId;
 
-    private String userName;
+    private String authorName;
 
-    private LocalDateTime createdAt;
+    private String createdAt;
 
-    private LocalDateTime updatedAt;
+    private String updatedAt;
+
+    public static PostResponse toDto(Post post) {
+        return new PostResponse(
+                post.getId(),
+                post.getCategory().getDisplayName(),
+                post.getTitle(),
+                post.getContent(),
+                post.getUser().getId(),
+                post.getUser().getUsername(),
+                post.getCreatedAt().format(FORMATTER),
+                post.getUpdatedAt().format(FORMATTER)
+        );
+    }
 }
