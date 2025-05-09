@@ -23,26 +23,27 @@ public class MovieController {
 
     @GetMapping
     public Page<MovieResponse> getMovies(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("releaseDate").descending());
         return movieService.getMovies(pageable);
     }
 
     @GetMapping("/{movieId}")
-    public ResponseEntity<MovieWithReviewResponse> getMovieById(@PathVariable Long movieId) {
+    public ResponseEntity<MovieWithReviewResponse> getMovieById(@PathVariable("movieId") Long movieId) {
         return ResponseEntity.ok(movieService.getMovieById(movieId));
     }
 
     @GetMapping("/favorite")
     public Page<MovieResponse> getFavoriteMovies(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
             @AuthenticationPrincipal User user
     ) {
         log.info(user.getUsername());
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         return movieService.getFavoriteMovies(user.getId(), pageable);
     }
+
 }

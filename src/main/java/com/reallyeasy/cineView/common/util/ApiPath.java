@@ -13,12 +13,17 @@ public class ApiPath {
     public static final String JOIN = BASE_USER + "/join";
     public static final String CHECK_USERNAME = BASE_USER + "/{username}/exists";
     public static final String ERROR_PAGE = "/error";
-
+    public static final String MOVIE_DETAIL_API = BASE_MOVIE + "/{movieId}";
+    public static final String COMMUNITY_LIST_API = "/api/v1/posts";
+    public static final String COMMUNITY_LIST_API_VALUE = "/api/v1/posts/**";
     public static final String[] ALL_USER_API_PATHS = {
             JOIN,
             CHECK_USERNAME,
             ERROR_PAGE,
-            BASE_MOVIE
+            BASE_MOVIE,
+            MOVIE_DETAIL_API,
+            COMMUNITY_LIST_API,
+            COMMUNITY_LIST_API_VALUE
     };
 
     public static final String CREATE_POST = BASE_POST;
@@ -43,7 +48,7 @@ public class ApiPath {
             FAVORITE_MOVIES_API,
             COMMENTS_API,
             MOVIE_API,
-            LOGIN
+            LOGIN,
     };
 
     private ApiPath() {

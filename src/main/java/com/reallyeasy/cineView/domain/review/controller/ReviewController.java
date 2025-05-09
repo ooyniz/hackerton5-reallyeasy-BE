@@ -19,9 +19,18 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping("/{movieId}")
-    public ResponseEntity<ReviewResponse> createReview(@PathVariable Long movieId, @Valid @RequestBody ReviewRequest request, @AuthenticationPrincipal User user) {
+    public ResponseEntity<ReviewResponse> createReview(
+            @PathVariable("movieId") Long movieId,
+            @Valid @RequestBody ReviewRequest request,
+            @AuthenticationPrincipal User user) {
+
+        if (user == null) {
+            return ResponseEntity.status(401).build(); // 401 Unauthorized
+        }
+
         return ResponseEntity.ok(reviewService.createReview(request, user.getId(), movieId));
     }
+
 
     @PatchMapping("/{movieId}/{reviewId}")
     public ResponseEntity<ReviewResponse> updateReview(@PathVariable Long movieId, @PathVariable Long reviewId, @RequestBody ReviewRequest request, @AuthenticationPrincipal User user) {
