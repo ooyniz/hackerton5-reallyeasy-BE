@@ -84,7 +84,8 @@ public class SecurityConfig {
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:3000",
                 "http://localhost:5173",
-                "http://54.180.122.233:8080"
+                "http://54.180.122.233:8080",
+                "http://15.164.100.98:8080"
         ));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*")); // 모든 헤더 허용
