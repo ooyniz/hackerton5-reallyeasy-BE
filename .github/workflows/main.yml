@@ -47,4 +47,4 @@ jobs:
           export DB_URL=jdbc:mysql://ec2-54-180-122-233.ap-northeast-2.compute.amazonaws.com:3306/movie_review
           export DB_USERNAME=db
           export DB_PASSWORD=fastcampus
-          nohup java -jar /home/${{ secrets.EC2_USER }}/app/*.jar > app.log 2>&1 &
+          nohup java -jar /home/${{ secrets.EC2_USER }}/githubaction/build/libs/*.jar > server.log 2>&1 &
