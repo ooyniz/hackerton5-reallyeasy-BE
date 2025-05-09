@@ -12,4 +12,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findAllByUserIdAndDeletedAtIsNull(Long userId);
 
     Optional<Review> findByIdAndDeletedAtIsNull(Long reviewId);
+
+    List<Review> findByMovieId(Long movieId);
 }
