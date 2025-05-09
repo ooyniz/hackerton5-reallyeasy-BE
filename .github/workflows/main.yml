@@ -31,7 +31,8 @@ jobs:
         source: "build/libs/*.jar"
         target: "/home/${{ secrets.EC2_USER }}/githubaction"
 
-    - name: Run JAR on EC2
+
+    - name: Terminate if there exist
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.EC2_HOST }}
@@ -48,6 +49,18 @@ jobs:
               sleep 1
             done
           fi
+        
+    
+    
+    - name: Run JAR on EC2
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_KEY }}
+        port: ${{ secrets.EC2_PORT }}
+        script: |
+          
           export DB_URL=${{ secrets.DB_URL }}
           export DB_USERNAME=db
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
