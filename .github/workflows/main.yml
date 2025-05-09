@@ -39,6 +39,7 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
         port: ${{ secrets.EC2_PORT }}
         script: |
+          pkill -f 'java -jar' || true
           export DB_URL=${{ secrets.DB_URL }}
           export DB_USERNAME=db
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
