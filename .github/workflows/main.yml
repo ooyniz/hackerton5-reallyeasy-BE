@@ -40,11 +40,13 @@ jobs:
         port: ${{ secrets.EC2_PORT }}
         script: |
           pkill -f 'java -jar' || true
-          export TMDB_API_KEY="e3916729ef63dc298f12e1d904a72fcd"
-          export JWT_KEY_KEY1="SpringSecurityJWTPracticeProjectIsSoGoodAndThisProjectIsSoFunSpringSecurityJWTPracticeProjectIsSoGoodAndThisProjectIsSoFun"
-          export JWT_KEY_KEY2="GoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurity"
-          export JWT_KEY_KEY3="HelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurity"
-          export DB_URL=jdbc:mysql://ec2-54-180-122-233.ap-northeast-2.compute.amazonaws.com:3306/movie_review
-          export DB_USERNAME=db
-          export DB_PASSWORD=fastcampus
-          nohup java -jar /home/${{ secrets.EC2_USER }}/githubaction/build/libs/cineView-0.0.1-SNAPSHOT.jar > /home/${{ secrets.EC2_USER }}/githubaction/build/libs/server.log 2>&1 &
+          nohup \
+          DB_URL="jdbc:mysql://ec2-54-180-1***-233.ap-northeast-2.compute.amazonaws.com:3306/movie_review" \
+          DB_USERNAME="db" \
+          DB_PASSWORD="fastcampus" \
+          TMDB_API_KEY="e3916729ef63dc298f12e1d904a72fcd" \
+          JWT_KEY_KEY1="SpringSecurityJWTPracticeProjectIsSoGoodAndThisProjectIsSoFunSpringSecurityJWTPracticeProjectIsSoGoodAndThisProjectIsSoFun" \
+          JWT_KEY_KEY2="GoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurity" \
+          JWT_KEY_KEY3="HelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurity" \
+          java -jar /home/${{ secrets.EC2_USER }}/githubaction/build/libs/cineView-0.0.1-SNAPSHOT.jar \
+          > /home/${{ secrets.EC2_USER }}/githubaction/build/libs/server.log 2>&1 &
