@@ -13,6 +13,7 @@ public class CommentResponse {
     private final Long commentId;
     private final Long postId;
     private final Long userId;
+    private final String name;
     private final String content;
     private final String createdAt;
     private final String updatedAt;
@@ -21,6 +22,7 @@ public class CommentResponse {
         this.commentId = comment.getId();
         this.postId = comment.getPost().getId();
         this.userId = comment.getUser().getId();
+        this.name = comment.getUser().getName();
         this.content = comment.getContent();
         this.createdAt = comment.getCreatedAt().format(FORMATTER);
         this.updatedAt = comment.getUpdatedAt().format(FORMATTER);

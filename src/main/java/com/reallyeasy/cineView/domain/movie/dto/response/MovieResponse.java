@@ -16,8 +16,10 @@ public class MovieResponse {
     private String overview;
     private String posterPath;
     private LocalDate releaseDate;
+    private Double averageRating;
+    private int reviewCount;
 
-    public static MovieResponse toDto(Movie movie) {
+    public static MovieResponse toDto(Movie movie, double averageRating, int reviewCount) {
         return new MovieResponse(
                 movie.getId(),
                 movie.getTmdbId(),
@@ -25,7 +27,9 @@ public class MovieResponse {
                 movie.getOriginalLanguage(),
                 movie.getOverview(),
                 movie.getPosterPath(),
-                movie.getReleaseDate()
+                movie.getReleaseDate(),
+                averageRating,
+                reviewCount
         );
     }
 }

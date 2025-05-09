@@ -32,6 +32,7 @@ public class PostWithCommentResponse {
         this.updatedAt = post.getUpdatedAt().format(FORMATTER);
 
         this.comments = post.getComments().stream()
+                .filter(comment -> comment.getDeletedAt() == null)
                 .map(CommentResponse::new)
                 .toList();
     }

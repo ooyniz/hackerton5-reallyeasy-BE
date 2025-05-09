@@ -44,7 +44,7 @@ public class SecurityConfig {
         loginAuthenticationFilter.setFilterProcessesUrl("/api/v1/users/login");
 
         http
-                //.cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 적용
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 적용
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable) // HTTP Basic 인증 비활성화
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -83,9 +83,10 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:3000",
-                "https://localhost:5173"
+                "http://localhost:5173",
+                "http://3.35.222.83"
         ));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // 명확한 HTTP 메서드 지정
+        configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*")); // 모든 헤더 허용
         configuration.setAllowCredentials(true); // 인증정보 포함 허용
         configuration.setExposedHeaders(List.of("Authorization")); // JWT 토큰 헤더 노출

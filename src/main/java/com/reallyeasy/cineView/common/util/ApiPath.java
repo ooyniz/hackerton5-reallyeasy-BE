@@ -7,8 +7,8 @@ public class ApiPath {
     public static final String BASE_REVIEW = "/api/v1/reviews";
     public static final String BASE_FAVORITE = "/api/v1/favorite-movies";
     public static final String BASE_COMMENT = "/api/v1/comments";
-    public static final String BASE_MOVIE = "/api/v1/movies";
 
+    public static final String BASE_MOVIE = "/api/v1/movies";
     public static final String LOGIN = BASE_USER + "/login";
     public static final String JOIN = BASE_USER + "/join";
     public static final String CHECK_USERNAME = BASE_USER + "/{username}/exists";
@@ -17,7 +17,8 @@ public class ApiPath {
     public static final String[] ALL_USER_API_PATHS = {
             JOIN,
             CHECK_USERNAME,
-            ERROR_PAGE
+            ERROR_PAGE,
+            BASE_MOVIE
     };
 
     public static final String CREATE_POST = BASE_POST;
