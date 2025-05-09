@@ -40,4 +40,11 @@ jobs:
         port: ${{ secrets.EC2_PORT }}
         script: |
           pkill -f 'java -jar' || true
+          export TMDB_API_KEY="e3916729ef63dc298f12e1d904a72fcd"
+          export JWT_KEY_KEY1="SpringSecurityJWTPracticeProjectIsSoGoodAndThisProjectIsSoFunSpringSecurityJWTPracticeProjectIsSoGoodAndThisProjectIsSoFun"
+          export JWT_KEY_KEY2="GoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurityGoodSpringSecurityNiceSpringSecurity"
+          export JWT_KEY_KEY3="HelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurityHelloSpringSecurity"
+          export DB_URL=jdbc:mysql://ec2-54-180-122-233.ap-northeast-2.compute.amazonaws.com:3306/movie_review
+          export DB_USERNAME=db
+          export DB_PASSWORD=fastcampus
           nohup java -jar /home/${{ secrets.EC2_USER }}/app/*.jar > app.log 2>&1 &
